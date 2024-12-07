@@ -32,6 +32,10 @@ application:
     jwt:
       secret-key: 24fa3955dc6677b0827f1d6cb2b87b898967588e26c61d7d42485b85afb06385866d3fb95635fc3b6270cc96aa02cee56553a784fd9afb818e66ea59eeefd07da
       expiration: 8640000
+  mailing:
+    default-email: test@test.be
+    frontend:
+      activation-url: http://127.0.0.1:8080/api/v1/auth/activate-account
 
 logging:
   level:
