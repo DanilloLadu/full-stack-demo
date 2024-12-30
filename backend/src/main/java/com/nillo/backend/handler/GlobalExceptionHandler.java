@@ -66,6 +66,7 @@ public class GlobalExceptionHandler {
                 .status(INTERNAL_SERVER_ERROR)
                 .body(
                         ExceptionResponse.builder()
+                                .businessErrorCode(NO_CODE.getCode())
                                 .error(exp.getMessage())
                                 .build()
                 );
@@ -107,6 +108,8 @@ public class GlobalExceptionHandler {
                 .status(BAD_REQUEST)
                 .body(
                         ExceptionResponse.builder()
+                                .businessErrorCode(NO_CODE.getCode())
+                                .businessErrorDescription(NO_CODE.getDescription())
                                 .errors(errors)
                                 .build()
                 );
