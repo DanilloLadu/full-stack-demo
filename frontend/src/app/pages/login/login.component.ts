@@ -5,7 +5,9 @@ import { AuthenticationRequest } from '../../models/authentication-request';
 import { ErrorResponse } from '../../models/error-response';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthenticationServiceService } from '../../services/authentication-service.service';
+import { AuthenticationService } from '../../services/authentication-service';
+import { TokenService } from '../../services/token-service';
+import { AuthenticationResponse } from '../../models/authentication-response';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +19,10 @@ export class LoginComponent {
   authRequest: AuthenticationRequest = { email: '', password: '' };
   errorResponse: ErrorResponse = {};
   errorMsg: Array<string> = [];
-  authService: AuthenticationServiceService = inject(
-    AuthenticationServiceService
+  authService: AuthenticationService = inject(
+    AuthenticationService
   );
+  tokenService: TokenService = inject(TokenService);
   constructor(private router: Router) {}
 
   register() {
@@ -28,7 +31,10 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.authRequest).subscribe({
-      next: v => console.log(v),
+      next: (v) => {
+        this.tokenService.token = v.token!;
+        console.log(v);
+      },
       error: (e) => {
         this.errorResponse = e.error;
         console.error(this.errorResponse);
@@ -38,6 +44,7 @@ export class LoginComponent {
         }
 
         this.errorMsg.push(this.errorResponse.businessErrorDescription!);
-      }});
+      },
+    });
   }
 }
