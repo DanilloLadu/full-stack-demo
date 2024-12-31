@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RegistrationRequest } from '../../models/registration-request';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthenticationServiceService } from '../../services/authentication-service.service';
+import { AuthenticationService } from '../../services/authentication-service';
 
 @Component({
   selector: 'app-register',
@@ -14,8 +14,8 @@ import { AuthenticationServiceService } from '../../services/authentication-serv
 })
 export class RegisterComponent {
   router: Router = inject(Router);
-  authService: AuthenticationServiceService = inject(
-    AuthenticationServiceService
+  authService: AuthenticationService = inject(
+    AuthenticationService
   );
   registerRequest: RegistrationRequest = {
     email: '',
@@ -34,7 +34,7 @@ export class RegisterComponent {
     this.errorMsg = [];
     this.authService.register(this.registerRequest).subscribe({
      //next: v => console.log(v),
-      error: (e) => {
+      error: (e : any) => {
         this.errorResponse = e.error;
         console.error(this.errorResponse);
 
