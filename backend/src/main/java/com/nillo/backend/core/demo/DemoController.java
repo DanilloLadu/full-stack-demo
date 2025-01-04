@@ -1,4 +1,4 @@
-package com.nillo.backend.demo;
+package com.nillo.backend.core.demo;
 
 import com.nillo.backend.user.User;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,4 +1,4 @@
-package com.nillo.backend.demo;
+package com.nillo.backend.core.demo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
