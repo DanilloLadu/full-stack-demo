@@ -30,6 +30,10 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 @Server(
                         description = "Local ENV",
                         url = "http://127.0.0.1:8080/api/v1"
+                ),
+                @Server(
+                        description = "Local PROD",
+                        url = "http://127.0.0.1:8080/api/v1"
                 )
         },
         security = {
