@@ -1,7 +1,7 @@
 package com.nillo.backend.core.feedback;
 
-import com.nillo.backend.core.book.Book;
 import com.nillo.backend.common.BaseEntity;
+import com.nillo.backend.core.book.Book;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;

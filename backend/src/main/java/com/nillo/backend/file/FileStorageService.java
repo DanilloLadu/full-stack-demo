@@ -14,7 +14,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static java.io.File.separator;
-import static java.lang.System.currentTimeMillis;
 
 @Service
 @Slf4j
@@ -26,7 +25,8 @@ public class FileStorageService {
 
     public String saveFile(
             @Nonnull MultipartFile sourceFile,
-            @Nonnull String userId
+            @Nonnull Integer bookId,
+            @Nonnull Integer userId
     ) {
         final String fileUploadSubPath = "users" + separator + userId;
         return uploadFile(sourceFile, fileUploadSubPath);
@@ -47,7 +47,7 @@ public class FileStorageService {
             }
         }
         final String fileExtension = getFileExtension(sourceFile.getOriginalFilename());
-        String targetFilePath = finalUploadPath + separator + currentTimeMillis() + "." + fileExtension;
+        String targetFilePath = finalUploadPath + separator + System.currentTimeMillis() + "." + fileExtension;
         Path targetPath = Paths.get(targetFilePath);
         try {
             Files.write(targetPath, sourceFile.getBytes());
