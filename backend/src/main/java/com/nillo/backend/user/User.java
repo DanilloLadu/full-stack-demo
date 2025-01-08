@@ -1,5 +1,7 @@
 package com.nillo.backend.user;
 
+import com.nillo.backend.core.book.Book;
+import com.nillo.backend.core.history.BookTransactionHistory;
 import com.nillo.backend.role.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -45,8 +47,16 @@ public class User implements UserDetails, Principal {
     private String password;
     private boolean accountLocked;
     private boolean enabled;
+
     @ManyToMany(fetch = EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
+
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
