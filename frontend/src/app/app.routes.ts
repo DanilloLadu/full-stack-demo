@@ -15,5 +15,10 @@ export const routes: Routes = [
       {
         path: 'activate/:test/:demo/:param2',
         component: ActivateAccountComponent
+      }, 
+      {
+        path: 'books',
+        loadChildren: () => import('./modules/book/book.module').then(m => m.BookModule),
+        //canActivate: [authGuard]
       }
 ];

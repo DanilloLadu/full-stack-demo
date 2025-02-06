@@ -1,7 +1,7 @@
-import { ErrorResponse } from './../../models/error-response';
+import { ErrorResponse } from '../../services/models/error-response';
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegistrationRequest } from '../../models/registration-request';
+import { RegistrationRequest } from '../../services/models/registration-request';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication-service';
