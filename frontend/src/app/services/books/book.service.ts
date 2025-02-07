@@ -13,15 +13,26 @@ export class BookService {
   tokenService: TokenService = inject(TokenService);
   url: string = 'http://127.0.0.1:8080/api/v1/books';
 
+  updateArchivedStatus(id: number) : Observable<PageResponseBookResponse>{
+    return this.http.patch<PageResponseBookResponse>(this.url + '/archived/' +  id, '', { headers: this.getCustomHeaders()});
+  }
+
+  updateShareableStatus(id: number) : Observable<PageResponseBookResponse>{
+    return this.http.patch<PageResponseBookResponse>(this.url + '/shareable/' +  id, '', { headers: this.getCustomHeaders()});
+  }
+
   borrowBook(id: number) : Observable<PageResponseBookResponse>{
     return this.http.post<PageResponseBookResponse>(this.url + '/borrow/' +  id, '', { headers: this.getCustomHeaders()});
   }
 
   findAllBooks( page: number, size: number) : Observable<PageResponseBookResponse> {
-
     return this.http.get<PageResponseBookResponse>(this.url + '?page=' + page + '&size=' + size, { headers: this.getCustomHeaders()});
   }
-  
+
+  findOwnBooks( page: number, size: number) : Observable<PageResponseBookResponse> {
+    return this.http.get<PageResponseBookResponse>(this.url + '/owner?page=' + page + '&size=' + size, { headers: this.getCustomHeaders()});
+  }
+
   getCustomHeaders() : HttpHeaders{
     let httpheaders = new HttpHeaders();
     httpheaders = httpheaders.append('Content-Type', 'application/json');
