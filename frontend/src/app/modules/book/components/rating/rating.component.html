@@ -1,0 +1,11 @@
+<div class="rating">
+  @for ( object of [].constructor(fullStars); track object) {
+    <i class="fas fa-star text-warning"></i>
+  }
+  @if (hasHalfStar) {
+    <i class="fas fa-star-half-alt text-warning"></i>
+  }
+  @for ( object of [].constructor(emptyStars); track object) {
+    <i class="far fa-star"></i>
+  }
+</div>
