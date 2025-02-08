@@ -60,8 +60,9 @@ export class ManageBookComponent implements OnInit {
               this.router.navigate(['/books/my-books']);
             }
           });
+        } else {
+          this.router.navigate(['/books/my-books']);
         }
-        this.router.navigate(['/books/my-books']);
       },
       error: (err) => {
         console.log(err.error);

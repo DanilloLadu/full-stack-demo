@@ -37,8 +37,10 @@ export class BookListComponent implements OnInit {
   }
 
   gotToPage(page: number) {
-    this.page = page;
-    this.findAllBooks();
+    if(page !== this.page){
+      this.page = page;
+      this.findAllBooks();
+    }
   }
 
   goToFirstPage() {

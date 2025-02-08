@@ -36,14 +36,16 @@ export class MyBooksComponent implements OnInit {
         next: (books) => {
           this.bookResponse = books;
           this.pages = Array(this.bookResponse.totalPages)
-            .fill(0);
+            .fill(0).map((x, i) => i)
         }
       });
   }
 
   gotToPage(page: number) {
-    this.page = page;
-    this.findAllBooks();
+    if(page !== this.page){
+      this.page = page;
+      this.findAllBooks();
+    }
   }
 
   goToFirstPage() {
