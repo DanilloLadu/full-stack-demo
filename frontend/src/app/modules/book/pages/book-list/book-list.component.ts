@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { PageResponseBookResponse } from '../../../../services/books/model/page-response-book-response';
 import { BookService } from '../../../../services/books/book.service';
@@ -12,7 +12,7 @@ import { BookCardComponent } from "../../components/book-card/book-card.componen
   styleUrl: './book-list.component.less',
   imports: [BookCardComponent]
 })
-export class BookListComponent {
+export class BookListComponent implements OnInit {
   bookResponse: PageResponseBookResponse = {};
   page = 0;
   size = 5;
