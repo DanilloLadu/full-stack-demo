@@ -16,6 +16,14 @@ export class BookService {
   tokenService: TokenService = inject(TokenService);
   url: string = 'http://127.0.0.1:8080/api/v1/books';
 
+  approveReturnBorrowBook( id: number) : Observable<number> {
+    return this.http.patch<number>(this.url + '/borrow/return/approve/' + id, '', { headers: this.getCustomHeaders()});
+  }
+
+  findAllReturnedBooks( page: number, size: number) : Observable<PageResponseBorrowedBookResponse> {
+    return this.http.get<PageResponseBorrowedBookResponse>(this.url + '/returned?page=' + page + '&size=' + size, { headers: this.getCustomHeaders()});
+  }
+
   returnBorrowBook( id: number) : Observable<number> {
     return this.http.patch<number>(this.url + '/borrow/return/' + id, '', { headers: this.getCustomHeaders()});
   }
