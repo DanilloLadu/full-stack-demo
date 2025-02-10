@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Component, inject, OnInit} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
+import {TokenService} from '../../../../services/token.service';
 
 @Component({
   selector: 'app-menu',
@@ -9,7 +10,10 @@ import {RouterLink} from '@angular/router';
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.less'
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit{
+  tokenService: TokenService = inject(TokenService);
+  router: Router = inject(Router);
+
   ngOnInit(): void {
     const linkColor = document.querySelectorAll('.nav-link');
     linkColor.forEach(link => {
@@ -21,5 +25,9 @@ export class MenuComponent {
         link.classList.add('active');
       });
     });
+  }
+  logout(){
+    this.tokenService.deleteToken()
+    this.router.navigate(['login']).then(r => true);
   }
 }

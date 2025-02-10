@@ -6,6 +6,7 @@ import {MyBooksComponent} from './pages/my-books/my-books.component';
 import {ManageBookComponent} from './pages/manage-book/manage-book.component';
 import {BorrowedBookListComponent} from './pages/borrowed-book-list/borrowed-book-list.component';
 import {ReturnedBooksComponent} from './pages/returned-books/returned-books.component';
+import {BookDetailsComponent} from './pages/book-details/book-details.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
       ,{
         path: 'my-returned-books',
         component: ReturnedBooksComponent,
+      },
+      {
+        path: 'details/:bookId',
+        component: BookDetailsComponent,
       },
       {
         path: 'manage',

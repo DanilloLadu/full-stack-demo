@@ -15,6 +15,10 @@ export class TokenService {
     return localStorage.getItem(this.tokenName);
   }
 
+  deleteToken(): void {
+    localStorage.clear();
+  }
+
   isTokenValid() {
     const token = this.token;
     if (!token) {

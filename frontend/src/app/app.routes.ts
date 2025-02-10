@@ -2,6 +2,7 @@ import { ActivateAccountComponent } from './pages/activate-account/activate-acco
 import { Routes } from '@angular/router';
 import {LoginComponent} from './pages/login/login.component';
 import {RegisterComponent} from './pages/register/register.component';
+import {authGuard} from './services/auth.guard';
 
 export const routes: Routes = [
     {
@@ -15,10 +16,10 @@ export const routes: Routes = [
       {
         path: 'activate/:test/:demo/:param2',
         component: ActivateAccountComponent
-      }, 
+      },
       {
         path: 'books',
         loadChildren: () => import('./modules/book/book.module').then(m => m.BookModule),
-        //canActivate: [authGuard]
+        canActivate: [authGuard]
       }
 ];
