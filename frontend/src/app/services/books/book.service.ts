@@ -5,6 +5,7 @@ import { TokenService } from '../token.service';
 import { PageResponseBookResponse } from './model/page-response-book-response';
 import {BookRequest} from './model/book-request';
 import {BookResponse} from './model/book-response';
+import {PageResponseBorrowedBookResponse} from './model/page-response-borrowed-book-response';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,14 @@ export class BookService {
   http: HttpClient = inject(HttpClient);
   tokenService: TokenService = inject(TokenService);
   url: string = 'http://127.0.0.1:8080/api/v1/books';
+
+  returnBorrowBook( id: number) : Observable<number> {
+    return this.http.patch<number>(this.url + '/borrow/return/' + id, '', { headers: this.getCustomHeaders()});
+  }
+
+  findAllBorrowedBooks( page: number, size: number) : Observable<PageResponseBorrowedBookResponse> {
+    return this.http.get<PageResponseBorrowedBookResponse>(this.url + '/borrowed?page=' + page + '&size=' + size, { headers: this.getCustomHeaders()});
+  }
 
   uploadBookCoverPicture(id: number, file : any): Observable<any> {
     const formData = new FormData();
