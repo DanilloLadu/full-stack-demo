@@ -14,7 +14,7 @@ export const routes: Routes = [
         component: RegisterComponent
       },
       {
-        path: 'activate/:test/:demo/:param2',
+        path: 'activate',
         component: ActivateAccountComponent
       },
       {

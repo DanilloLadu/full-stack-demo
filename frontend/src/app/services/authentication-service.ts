@@ -12,7 +12,7 @@ import { AuthenticationResponse } from './models/authentication-response';
 export class AuthenticationService {
   http: HttpClient = inject(HttpClient);
   url: string = 'http://127.0.0.1:8080/api/v1/auth/';
-  
+
   constructor() {}
 
   register(obj: RegistrationRequest): Observable<string> {
@@ -21,5 +21,9 @@ export class AuthenticationService {
 
   login(obj: AuthenticationRequest): Observable<AuthenticationResponse> {
     return this.http.post<AuthenticationResponse>(this.url + 'authenticate', obj);
+  }
+
+  activate(token: String): Observable<string> {
+    return this.http.get<string>(this.url + 'activate-account?token=' + token);
   }
 }
