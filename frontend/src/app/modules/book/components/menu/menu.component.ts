@@ -13,6 +13,7 @@ import {TokenService} from '../../../../services/token.service';
 export class MenuComponent implements OnInit{
   tokenService: TokenService = inject(TokenService);
   router: Router = inject(Router);
+  token: TokenService = inject(TokenService);
 
   ngOnInit(): void {
     const linkColor = document.querySelectorAll('.nav-link');

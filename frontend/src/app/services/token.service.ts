@@ -50,4 +50,14 @@ export class TokenService {
     }
     return [];
   }
+
+  get userName(): string {
+    const token = this.token;
+    if (token) {
+      const jwtHelper = new JwtHelperService();
+      const decodedToken = jwtHelper.decodeToken(token);
+      return decodedToken.fullName;
+    }
+    return '';
+  }
 }
