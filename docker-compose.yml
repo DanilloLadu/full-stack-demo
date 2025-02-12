@@ -38,3 +38,16 @@ services:
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
     networks:
       - spring-network
+
+  keycloak:
+    container_name: keycloak-dev
+    image: quay.io/keycloak/keycloak:26.1
+    ports:
+      - 9090:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - spring-network
+    command:
+      - "start-dev"

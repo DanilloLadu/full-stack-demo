@@ -1,13 +1,9 @@
-import { Component, inject } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthenticationRequest } from '../../services/models/authentication-request';
-import { ErrorResponse } from '../../services/models/error-response';
-import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthenticationService } from '../../services/authentication-service';
-import { TokenService } from '../../services/token.service';
-import { AuthenticationResponse } from '../../services/models/authentication-response';
+import {KeycloakService} from '../../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-login',
@@ -15,36 +11,16 @@ import { AuthenticationResponse } from '../../services/models/authentication-res
   templateUrl: './login.component.html',
   styleUrl: './login.component.less',
 })
-export class LoginComponent {
-  authRequest: AuthenticationRequest = { email: '', password: '' };
-  errorResponse: ErrorResponse = {};
-  errorMsg: Array<string> = [];
-  authService: AuthenticationService = inject(AuthenticationService);
-  tokenService: TokenService = inject(TokenService);
-  
-  constructor(private router: Router) {}
+export class LoginComponent implements OnInit{
 
-  register() {
-    this.router.navigate(['register']);
+  constructor(
+    private ss: KeycloakService
+  ) {
   }
 
-  login() {
-    this.authService.login(this.authRequest).subscribe({
-      next: (v) => {
-        this.tokenService.token = v.token!;
-        console.log(v);
-        this.router.navigate(['books']);
-      },
-      error: (e) => {
-        this.errorResponse = e.error;
-        console.error(this.errorResponse);
-
-        for (const key in this.errorResponse.errors) {
-          this.errorMsg.push(this.errorResponse.errors[key]);
-        }
-
-        this.errorMsg.push(this.errorResponse.businessErrorDescription!);
-      },
-    });
+  async ngOnInit(): Promise<void> {
+    await this.ss.init();
+    //await this.ss.login();
   }
 }
+

@@ -3,7 +3,6 @@ package com.nillo.backend.core.book;
 import com.nillo.backend.core.feedback.Feedback;
 import com.nillo.backend.core.history.BookTransactionHistory;
 import com.nillo.backend.common.BaseEntity;
-import com.nillo.backend.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,9 +27,9 @@ public class Book extends BaseEntity {
     private String bookCover;
     private boolean archived;
     private boolean shareable;
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
+//    @ManyToOne
+//    @JoinColumn(name = "owner_id")
+//    private User owner;
     @OneToMany(mappedBy = "book")
     private List<Feedback> feedbacks;
     @OneToMany(mappedBy = "book")

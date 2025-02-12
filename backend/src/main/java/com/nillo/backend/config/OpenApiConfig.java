@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.security.OAuthFlow;
+import io.swagger.v3.oas.annotations.security.OAuthFlows;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
@@ -46,7 +48,17 @@ import io.swagger.v3.oas.annotations.servers.Server;
         name = "Bearer Authentication",
         description = "JWT auth description",
         scheme = "bearer",
-        type = SecuritySchemeType.HTTP,
+        type = SecuritySchemeType.OAUTH2,
+        flows = @OAuthFlows(
+                implicit =  @OAuthFlow(
+                        authorizationUrl = "http://localhost:9090/realms/book-social-network/protocol/openid-connect/auth"
+                )
+//                ,
+//                clientCredentials =
+//                @OAuthFlow(
+//                        authorizationUrl = "http://localhost:9090/realms/book-social-network/protocol/openid-connect/auth"
+//                )
+        ),
         bearerFormat = "JWT",
         in = SecuritySchemeIn.HEADER
 )

@@ -35,7 +35,6 @@ export class TokenService {
     return true;
   }
 
-
   isTokenNotValid() {
     return !this.isTokenValid();
   }
@@ -56,7 +55,7 @@ export class TokenService {
     if (token) {
       const jwtHelper = new JwtHelperService();
       const decodedToken = jwtHelper.decodeToken(token);
-      return decodedToken.fullName;
+      return decodedToken.given_name;
     }
     return '';
   }

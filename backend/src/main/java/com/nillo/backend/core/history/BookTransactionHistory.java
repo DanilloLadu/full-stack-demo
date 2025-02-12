@@ -2,7 +2,6 @@ package com.nillo.backend.core.history;
 
 import com.nillo.backend.core.book.Book;
 import com.nillo.backend.common.BaseEntity;
-import com.nillo.backend.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -20,9 +19,9 @@ import lombok.experimental.SuperBuilder;
 @Entity
 public class BookTransactionHistory extends BaseEntity {
 
-    @ManyToOne
+//    @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private String userId;
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
