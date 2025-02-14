@@ -14,11 +14,21 @@ services:
       dockerfile: backend.Dockerfile
     ports:
       - "8080:8088"
-    environment:
-      DB_URL: jdbc:postgresql://postgres:5432/demo
+#    environment:
+#      DB_URL: jdbc:postgresql://postgres:5432/demo
     depends_on:
       postgres:
         condition: service_started
+    networks:
+      - spring-network
+
+  frontend:
+    image: angular
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    ports:
+      - "80:80"
     networks:
       - spring-network
 
