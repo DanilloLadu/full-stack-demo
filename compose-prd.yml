@@ -1,0 +1,53 @@
+networks:
+  spring-network:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
+
+services:
+  backend:
+    image: bsn/bsn:1.0.0
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    ports:
+      - "8080:8088"
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/demo
+    depends_on:
+      postgres:
+        condition: service_started
+    networks:
+      - spring-network
+
+  postgres:
+    container_name: postgres-dev
+    image: postgres:alpine
+    user: root
+    environment:
+      POSTGRES_USER: spring
+      POSTGRES_PASSWORD: spring
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: demo
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - spring-network
+    restart: unless-stopped
+  
+  mail-dev:
+    container_name: mail-dev-jwt
+    image: axllent/mailpit
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    networks:
+      - spring-network
