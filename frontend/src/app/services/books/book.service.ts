@@ -14,7 +14,7 @@ export class BookService {
 
   http: HttpClient = inject(HttpClient);
   tokenService: TokenService = inject(TokenService);
-  url: string = 'http://127.0.0.1:8080/api/v1/books';
+  url: string = 'http://127.0.0.1:8088/api/v1/books';
 
   approveReturnBorrowBook( id: number) : Observable<number> {
     return this.http.patch<number>(this.url + '/borrow/return/approve/' + id, '', { headers: this.getCustomHeaders()});

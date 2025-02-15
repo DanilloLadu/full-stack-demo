@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication-service';
 import { TokenService } from '../../services/token.service';
-import { AuthenticationResponse } from '../../services/models/authentication-response';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +20,7 @@ export class LoginComponent {
   errorMsg: Array<string> = [];
   authService: AuthenticationService = inject(AuthenticationService);
   tokenService: TokenService = inject(TokenService);
-  
+
   constructor(private router: Router) {}
 
   register() {

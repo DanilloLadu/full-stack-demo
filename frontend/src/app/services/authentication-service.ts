@@ -11,7 +11,7 @@ import { AuthenticationResponse } from './models/authentication-response';
 })
 export class AuthenticationService {
   http: HttpClient = inject(HttpClient);
-  url: string = 'http://127.0.0.1:8080/api/v1/auth/';
+  url: string = 'http://127.0.0.1:8088/api/v1/auth/';
 
   constructor() {}
 
