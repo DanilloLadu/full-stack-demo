@@ -5,6 +5,8 @@ networks:
 volumes:
   postgres:
     driver: local
+  backend:
+    driver: local
 
 services:
   backend:

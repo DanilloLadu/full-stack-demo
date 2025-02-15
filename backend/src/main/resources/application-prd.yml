@@ -1,6 +1,3 @@
-server:
-  port: 8088
-
 spring:
 
   output:
@@ -36,7 +33,7 @@ application:
   mailing:
     default-email: test@test.be
     frontend:
-      activation-url: http://localhost:4200/activate #http://127.0.0.1:8080/api/v1/auth/activate-account
+      activation-url: http://127.0.0.1/activate #http://127.0.0.1:8080/api/v1/auth/activate-account
   file:
     uploads:
       photos-output-path: ./uploads
@@ -44,7 +41,6 @@ application:
 logging:
   level:
     org:
-      springframework: DEBUG
       springframework.orm.jpa: DEBUG
       springframework.transaction: DEBUG
       springframework.transaction.interceptor: DEBUG
