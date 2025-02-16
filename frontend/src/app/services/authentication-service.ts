@@ -5,13 +5,14 @@ import { RegistrationRequest } from './models/registration-request';
 import { Observable } from 'rxjs';
 import { AuthenticationRequest } from './models/authentication-request';
 import { AuthenticationResponse } from './models/authentication-response';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
   http: HttpClient = inject(HttpClient);
-  url: string = 'http://127.0.0.1:8088/api/v1/auth/';
+  url: string = environment.apiUrl + 'auth/';
 
   constructor() {}
 

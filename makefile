@@ -12,10 +12,10 @@ dev:
 	./backend/mvnw -f backend/pom.xml spring-boot:run
 
 dc-dev:
-	docker compose -f compose-dev.yml up
+	docker-compose -f compose-dev.yml up
 
 dc-prd:
-	docker compose -f compose-prd.yml up
+	docker-compose -f compose-prd.yml up
 
 dc-build:
 	docker-compose -f compose-prd.yml build

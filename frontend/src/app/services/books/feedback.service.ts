@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TokenService} from '../token.service';
 import {Observable} from 'rxjs';
 import {PageResponseFeedbackResponse} from './model/page-response-feedback-response';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import {PageResponseFeedbackResponse} from './model/page-response-feedback-respo
 export class FeedbackService {
   http: HttpClient = inject(HttpClient);
   tokenService: TokenService = inject(TokenService);
-  url: string = 'http://127.0.0.1:8088/api/v1/feedbacks';
+  url: string = environment.apiUrl + 'feedbacks';
 
   saveFeedback(body: FeedbackRequest ): Observable<number>{
     return this.http.post<number>(this.url , body,  { headers: this.getCustomHeaders()});

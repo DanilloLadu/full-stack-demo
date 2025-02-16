@@ -6,6 +6,7 @@ import { PageResponseBookResponse } from './model/page-response-book-response';
 import {BookRequest} from './model/book-request';
 import {BookResponse} from './model/book-response';
 import {PageResponseBorrowedBookResponse} from './model/page-response-borrowed-book-response';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class BookService {
 
   http: HttpClient = inject(HttpClient);
   tokenService: TokenService = inject(TokenService);
-  url: string = 'http://127.0.0.1:8088/api/v1/books';
+  url: string = environment.apiUrl + 'books';
 
   approveReturnBorrowBook( id: number) : Observable<number> {
     return this.http.patch<number>(this.url + '/borrow/return/approve/' + id, '', { headers: this.getCustomHeaders()});
