@@ -25,9 +25,6 @@ spring:
     host: mail-dev
     port: 1025
 
-  cors:
-    origins: http://nilloooo.duckdns.org/, http://127.0.0.1
-
 application:
   security:
     jwt:
@@ -40,6 +37,8 @@ application:
   file:
     uploads:
       photos-output-path: ./uploads
+  cors:
+    origins: http://nilloooo.duckdns.org/, http://127.0.0.1
 
 logging:
   level:
