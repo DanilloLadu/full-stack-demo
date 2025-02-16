@@ -46,17 +46,18 @@
           <i class="fa-solid fa-angle-left"></i>
         </a>
       </li>
-      <li
-        class="page-item"
-        *NgFor="let pageIndex of pages"
-      >
-        <a
-          (click)="gotToPage(pageIndex)"
-          class="page-link"
-          [class.active]="page === pageIndex"
-          href="javascript:void(0)"
-        >{{ pageIndex + 1 }}</a>
-      </li>
+
+      @for (pageIndex of pages; track pageIndex) {
+        <li class="page-item">
+          <a
+            (click)="gotToPage(pageIndex)"
+            class="page-link"
+            [class.active]="page === pageIndex"
+            href="javascript:void(0)"
+          >{{ pageIndex + 1 }}</a>
+        </li>
+      }
+
       <li class="page-item">
         <a
           (click)="goToNextPage()"
