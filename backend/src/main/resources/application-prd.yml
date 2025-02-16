@@ -26,7 +26,7 @@ spring:
     port: 1025
 
   cors:
-    origins: http://localhost:4200, http://127.0.0.1:4200, http://127.0.0.1
+    origins: http://nilloooo.duckdns.org/, http://127.0.0.1
 
 application:
   security:
