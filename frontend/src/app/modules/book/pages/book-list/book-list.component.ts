@@ -33,7 +33,11 @@ export class BookListComponent implements OnInit {
   private findAllBooks() {
     this.bookService.findAllBooks(this.page,this.size)
       .subscribe({
-        next: (v) => this.bookResponse = v});
+        next: (books) => {
+          this.bookResponse = books
+          this.pages = Array(this.bookResponse.totalPages)
+            .fill(0).map((x, i) => i)
+        }});
   }
 
   gotToPage(page: number) {
