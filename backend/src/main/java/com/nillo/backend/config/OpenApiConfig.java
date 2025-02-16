@@ -29,11 +29,11 @@ import io.swagger.v3.oas.annotations.servers.Server;
         servers = {
                 @Server(
                         description = "Local ENV",
-                        url = "http://127.0.0.1:8080/api/v1"
+                        url = "http://127.0.0.1:8088/api/v1"
                 ),
                 @Server(
                         description = "Local PROD",
-                        url = "http://127.0.0.1:8080/api/v1"
+                        url = "http://nilloooo.duckdns.org:8088/api/v1"
                 )
         },
         security = {
