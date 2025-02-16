@@ -9,7 +9,7 @@ RUN npm install
 
 COPY /frontend .
 
-RUN npm run build --prod
+RUN npm run build:prod --prod
 
 #Deploy
 FROM nginx:alpine
