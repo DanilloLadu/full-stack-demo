@@ -38,5 +38,19 @@ public class AuthenticationController {
         service.activateAccount(token);
     }
 
+    @GetMapping("/change-password")
+    public void changePassword(
+            @RequestParam String email
+    ) throws MessagingException {
+        service.newPassword(email);
+    }
+
+    @PostMapping("/new-password")
+    public ResponseEntity<PasswordRequest> newPassword(
+            @RequestBody PasswordRequest request
+    ) {
+        service.newPassword(request);
+        return ResponseEntity.accepted().build();
+    }
 
 }

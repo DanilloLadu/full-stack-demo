@@ -38,6 +38,9 @@ public class AuthenticationService {
     @Value("${application.mailing.frontend.activation-url}")
     private String activationUrl;
 
+    @Value("${application.mailing.frontend.password-url}")
+    private String passwordUrl;
+
     public void register(RegistrationRequest request) throws MessagingException {
         var userRole = roleRepository.findByName("USER")
                 .orElseThrow(() -> new IllegalStateException("ROLE USER was not initiated"));
@@ -92,6 +95,31 @@ public class AuthenticationService {
         tokenRepository.save(savedToken);
     }
 
+    @Transactional //all or none of the writes on the database is executed.
+    public void newPassword(PasswordRequest request) {
+        Token savedToken = tokenRepository.findByToken(request.getToken())
+                .orElseThrow(() -> new RuntimeException("Invalid token"));
+        if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
+            throw new RuntimeException("Activation token has expired. A new token has been send to the same email address");
+        }
+
+        var user = userRepository.findById(savedToken.getUser().getId())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        userRepository.save(user);
+
+        savedToken.setValidatedAt(LocalDateTime.now());
+        tokenRepository.save(savedToken);
+    }
+
+    public void newPassword(String email) throws MessagingException {
+
+        var user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("USER not found"));
+
+        sendPasswordEmail(user);
+    }
+
     private String generateAndSaveActivationToken(User user) {
         // Generate a token
         String generatedToken = UUID.randomUUID().toString();
@@ -115,5 +143,19 @@ public class AuthenticationService {
                 String.format("%s?token=%s",activationUrl, newToken),
                 "Account activation"
                 );
+    }
+
+    private void sendPasswordEmail(User user) throws MessagingException {
+        var newToken = generateAndSaveActivationToken(user);
+
+        emailService.sendEmail(
+                user.getEmail(),
+                user.getFullName(),
+                EmailTemplateName.NEW_PASSWORD,
+                String.format("%s?token=%s",passwordUrl, newToken),
+                "New Password"
+        );
+
+
     }
 }

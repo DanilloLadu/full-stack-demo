@@ -34,6 +34,7 @@ application:
     default-email: test@test.be
     frontend:
       activation-url: http://localhost:4200/activate #http://127.0.0.1:8080/api/v1/auth/activate-account
+      password-url: http://localhost:4200/new-password
   file:
     uploads:
       photos-output-path: ./uploads
