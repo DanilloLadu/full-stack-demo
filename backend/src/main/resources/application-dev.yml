@@ -25,6 +25,9 @@ spring:
     host: localhost
     port: 1025
 
+  solr:
+    host: http://localhost:8983/solr/demo
+
 application:
   security:
     jwt:

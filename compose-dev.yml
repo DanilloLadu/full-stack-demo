@@ -7,6 +7,8 @@ volumes:
     driver: local
   keycloak:
     driver: local
+  solr:
+    driver: local
 
 services:
   postgres:
@@ -38,3 +40,16 @@ services:
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
     networks:
       - spring-network
+
+  solr:
+    image: solr:9.8.0-slim
+    container_name: solr
+    ports:
+      - "8983:8983"
+    networks:
+      - spring-network
+    volumes:
+      - solr:/var/solr
+    command:
+      - solr-precreate
+      - demo

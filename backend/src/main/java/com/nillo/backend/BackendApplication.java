@@ -2,6 +2,7 @@ package com.nillo.backend;
 
 import com.nillo.backend.role.Role;
 import com.nillo.backend.role.RoleRepository;
+import com.nillo.backend.solr.SolrService;
 import com.nillo.backend.user.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,9 +21,9 @@ public class BackendApplication {
 	}
 
 	@Bean
-	public CommandLineRunner runner(RoleRepository roleRepository, UserRepository userRepository) {
+	public CommandLineRunner runner(RoleRepository roleRepository, SolrService service) {
 		return args -> {
-
+service.addBook();
 			if (roleRepository.findByName("USER").isEmpty()) {
 				roleRepository.save(
 						Role.builder()
