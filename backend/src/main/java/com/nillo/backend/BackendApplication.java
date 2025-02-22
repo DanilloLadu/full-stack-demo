@@ -21,9 +21,8 @@ public class BackendApplication {
 	}
 
 	@Bean
-	public CommandLineRunner runner(RoleRepository roleRepository, SolrService service) {
+	public CommandLineRunner runner(RoleRepository roleRepository) {
 		return args -> {
-service.addBook();
 			if (roleRepository.findByName("USER").isEmpty()) {
 				roleRepository.save(
 						Role.builder()

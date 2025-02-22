@@ -21,10 +21,10 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Book extends BaseEntity {
-    private String title;
-    private String authorName;
-    private String isbn;
-    private String synopsis;
+    @Field private String title;
+    @Field private String authorName;
+    @Field private String isbn;
+    @Field private String synopsis;
     private String bookCover;
     private boolean archived;
     private boolean shareable;

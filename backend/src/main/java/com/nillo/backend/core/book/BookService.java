@@ -5,6 +5,7 @@ import com.nillo.backend.core.history.BookTransactionHistory;
 import com.nillo.backend.core.history.BookTransactionHistoryRepository;
 import com.nillo.backend.exception.OperationNotPermittedException;
 import com.nillo.backend.file.FileStorageService;
+import com.nillo.backend.solr.SolrService;
 import com.nillo.backend.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import java.util.Objects;
 @Transactional
 public class BookService {
 
+    private final SolrService solrService;
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final BookTransactionHistoryRepository transactionHistoryRepository;
@@ -36,6 +38,7 @@ public class BookService {
         User user = ((User) connectedUser.getPrincipal());
         Book book = bookMapper.toBook(request);
         book.setOwner(user);
+        solrService.addBook(book);
         return bookRepository.save(book).getId();
     }
 

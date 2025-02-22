@@ -44,6 +44,8 @@ application:
   cors:
     origins: http://localhost:4200, http://127.0.0.1:4200, http://127.0.0.1
 logging:
+  path: logs
+  file: logs/spring-boot-logging.log
   level:
     org:
       springframework: DEBUG
@@ -52,3 +54,6 @@ logging:
       springframework.transaction.interceptor: DEBUG
       springframework.security.web.FilterChainProxy: DEBUG
       springframework.jdbc: DEBUG
+
+log4j:
+  rootLogger: DEBUG
