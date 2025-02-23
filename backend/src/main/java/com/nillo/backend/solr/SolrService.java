@@ -26,10 +26,23 @@ public class SolrService {
 
         final UpdateResponse response;
 
-        try (SolrClient solrClient = getSolrClient()){
+        try (SolrClient solrClient = getSolrClient()) {
             response = solrClient.addBean(book);
             solrClient.commit();
             log.debug("Adding to Solr: {}", response);
+        } catch (IOException | SolrServerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteALl() {
+
+        final UpdateResponse response;
+
+        try (SolrClient solrClient = getSolrClient()) {
+
+            solrClient.deleteByQuery("*:*");
+            solrClient.commit();
         } catch (IOException | SolrServerException e) {
             throw new RuntimeException(e);
         }

@@ -20,6 +20,12 @@ dc-prd:
 dc-build:
 	docker-compose -f compose-prd.yml build
 	docker-compose -f compose-prd.yml up
+
+solr:
+	firefox -new-tab -url "http://127.0.0.1:8983/solr/#/demo/core-overview"	
+
+solr-optimize:
+	firefox -new-tab -url "http://127.0.0.1:8983/solr/demo/update?optimize=true"	
 		
 
 # docker build -t bsn/bsn:1.0.0 -f ./backend.Dockerfile .
