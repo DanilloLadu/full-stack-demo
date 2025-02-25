@@ -2,14 +2,11 @@ package com.nillo.backend.solr;
 
 import com.nillo.backend.core.book.Book;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpJdkSolrClient;
-import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
+import org.springframework.web.client.RestClient;
 
 @Slf4j
 @Service
@@ -17,34 +14,73 @@ public class SolrService {
 
     @Value("${spring.solr.host}")
     private String host;
+    private RestClient restClient;
 
-    private SolrClient getSolrClient() {
-        return new HttpJdkSolrClient.Builder(this.host).build();
+    public SolrService() {
+        this.restClient = RestClient.create();
     }
 
     public void addBook(Book book) {
 
-        final UpdateResponse response;
+        String body = ("""
+                        [
+                          {
+                            "title" : %s,
+                            "isbn" : %s,
+                            "authorName" : %s,
+                            "synopsis" : %s
+                          }
+                        ]
+                        """).formatted(book.getTitle(), book.getIsbn(), book.getAuthorName(), book.getSynopsis());
 
-        try (SolrClient solrClient = getSolrClient()) {
-            response = solrClient.addBean(book);
-            solrClient.commit();
-            log.debug("Adding to Solr: {}", response);
-        } catch (IOException | SolrServerException e) {
-            throw new RuntimeException(e);
-        }
+        ResponseEntity<Void> response = restClient.post()
+                .uri(host + "/update?commitWithin=1000")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(body)
+                .retrieve()
+                .toBodilessEntity();
     }
 
     public void deleteALl() {
+        ResponseEntity<Void> response = restClient.post()
+                .uri(host + "/update?commitWithin=1000")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{'delete': {'query': '*:*'}}")
+                .retrieve()
+                .toBodilessEntity();
+    }
 
-        final UpdateResponse response;
-
-        try (SolrClient solrClient = getSolrClient()) {
-
-            solrClient.deleteByQuery("*:*");
-            solrClient.commit();
-        } catch (IOException | SolrServerException e) {
-            throw new RuntimeException(e);
-        }
+    public void createShema() {
+        ResponseEntity<Void> response = restClient.post()
+                .uri(host + "/update?commitWithin=1000")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("""
+                        {
+                          "add-field": [
+                            {
+                              "name": "title",
+                              "type": "string",
+                              "stored": true
+                            },
+                            {
+                              "name": "isbn",
+                              "type": "string",
+                              "stored": true
+                            },
+                            {
+                              "name": "authorName",
+                              "type": "string",
+                              "stored": true
+                            },
+                            {
+                              "name": "synopsis",
+                              "type": "text_general",
+                              "stored": true
+                            }
+                          ]
+                        }
+                        """)
+                .retrieve()
+                .toBodilessEntity();
     }
 }
