@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.apache.solr.client.solrj.beans.Field;
 
 import java.util.List;
 
@@ -21,10 +20,10 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Book extends BaseEntity {
-    @Field private String title;
-    @Field private String authorName;
-    @Field private String isbn;
-    @Field private String synopsis;
+    private String title;
+    private String authorName;
+    private String isbn;
+    private String synopsis;
     private String bookCover;
     private boolean archived;
     private boolean shareable;

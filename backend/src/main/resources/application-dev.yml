@@ -26,7 +26,7 @@ spring:
     port: 1025
 
   solr:
-    host: http://localhost:8983/solr/demo
+    host: http://localhost:8983/solr/spring
 
 application:
   security:
@@ -54,6 +54,8 @@ logging:
       springframework.transaction.interceptor: DEBUG
       springframework.security.web.FilterChainProxy: DEBUG
       springframework.jdbc: DEBUG
+      apache.hc.client5.http: DEBUG
+      apache.hc.client5.http.wire: DEBUG
 
 log4j:
   rootLogger: DEBUG

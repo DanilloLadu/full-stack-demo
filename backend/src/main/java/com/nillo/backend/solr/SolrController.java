@@ -36,7 +36,4 @@ public class SolrController {
 
         return ResponseEntity.accepted().build();
     }
-
-
-
 }

@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -26,7 +25,6 @@ public class BaseEntity {
 
     @Id
     @GeneratedValue
-    @Field("book_id")
     private Integer id;
 
     @CreatedDate
