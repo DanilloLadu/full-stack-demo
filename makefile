@@ -27,6 +27,6 @@ solr:
 solr-optimize:
 	firefox -new-tab -url "http://127.0.0.1:8983/solr/demo/update?optimize=true"	
 		
-
+# http://127.0.0.1:8983
 # docker build -t bsn/bsn:1.0.0 -f ./backend.Dockerfile .
 # docker-compose -f compose-prd.yml up --build --force-recreate --no-deps frontend

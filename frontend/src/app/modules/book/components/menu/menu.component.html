@@ -32,10 +32,11 @@
             </a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Find a book" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
-        </form>
+
+        <div class="d-flex" role="search">
+          <input (keyup.enter)="search()" [(ngModel)]="searchValue" class="form-control me-2" type="search" placeholder="Find a book" aria-label="Search">
+          <button (click)="search()" class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+        </div>
         <button (click)="logout()" class="btn btn-outline-success" type="submit"><i class="fas fa-sign-out"></i> {{token.userName}}</button>
       </div>
     </div>

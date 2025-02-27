@@ -16,6 +16,14 @@ export class BookService {
   http: HttpClient = inject(HttpClient);
   tokenService: TokenService = inject(TokenService);
   url: string = environment.apiUrl + 'books';
+  solrUrl: string = environment.apiSolr;
+
+
+  searchSolrTitle(query?: string, facet?: string): Observable<any>{
+    const search = (query) ? ('select?q=title:' + query) : "select?q=title:*";
+    const facetSearch = (facet) ? ('&facet=true&facet.field=authorName&facet.field=' + facet) : "";
+    return this.http.get<any>(this.solrUrl + search + facetSearch);
+  }
 
   approveReturnBorrowBook( id: number) : Observable<number> {
     return this.http.patch<number>(this.url + '/borrow/return/approve/' + id, '', { headers: this.getCustomHeaders()});

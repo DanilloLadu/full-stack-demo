@@ -1,19 +1,22 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import {NoPreloading, Router, RouterLink} from '@angular/router';
 import {TokenService} from '../../../../services/token.service';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-menu',
   imports: [
-    RouterLink
+    RouterLink,
+    FormsModule
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.less'
 })
-export class MenuComponent implements OnInit{
+export class MenuComponent implements OnInit {
   tokenService: TokenService = inject(TokenService);
   router: Router = inject(Router);
   token: TokenService = inject(TokenService);
+  searchValue: string = '';
 
   ngOnInit(): void {
     const linkColor = document.querySelectorAll('.nav-link');
@@ -27,8 +30,14 @@ export class MenuComponent implements OnInit{
       });
     });
   }
-  logout(){
+
+  logout() {
     this.tokenService.deleteToken()
     this.router.navigate(['login']).then(r => true);
+  }
+
+  search() {
+    this.router.navigate(['/']).then(() => this.router.navigate(['books/search'], {
+      queryParams: {q: this.searchValue}}));
   }
 }

@@ -1,0 +1,12 @@
+<h3>Search list</h3>
+
+
+<hr>
+<div class="d-flex justify-content-start gap-2 flex-wrap">
+  @for (book of bookResponse;  track book) {
+    <app-book-card
+      [book]="book"
+    ></app-book-card>
+  }
+
+</div>
