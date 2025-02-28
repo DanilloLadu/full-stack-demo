@@ -26,13 +26,15 @@ export class BookService {
     return this.http.get<any>(this.solrUrl + search + facetSearch);
   }
 
-  getSpellSuggestions(query: string): Observable<any> {
+  //http://localhost:8983/solr/spring/suggest?suggest=true&suggest.build=true&suggest.dictionary=mySuggester&suggest.q=dem
+  getSuggestions(query: string): Observable<any> {
     const params = new HttpParams()
       .set('q', query)
-      .set('spellcheck', 'true')
-      .set('spellcheck.count', '5');
+      .set('suggest', 'true')
+      .set('suggest.dictionary', 'mySuggester')
+      .set('suggest.count', '10');
 
-    return this.http.get(this.solrUrl + "spell/" , { params });
+    return this.http.get(this.solrUrl + "suggest/" , { params });
   }
 
   approveReturnBorrowBook( id: number) : Observable<number> {

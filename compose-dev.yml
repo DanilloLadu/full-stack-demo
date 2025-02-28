@@ -54,6 +54,7 @@ services:
       - spring-network
     volumes:
       - solr:/var/solr
+      - ./docker/solr/solrconfig.xml:/var/solr/data/spring/conf/solrconfig.xml
     command:
       - solr-precreate
       - spring

@@ -44,12 +44,9 @@ export class BookSearchComponent implements OnInit {
     this.searchControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap((query) => this.bookService.getSpellSuggestions(query))
+      switchMap((query) => this.bookService.getSuggestions(query))
     ).subscribe((data: any) => {
-      const suggestionsData = data.spellcheck?.suggestions;
-      this.suggestions = suggestionsData?.length > 0
-        ? suggestionsData[1]?.suggestion.map((s: any) => s.word) || []
-        : [];
+      this.suggestions = data.suggest.mySuggester[this.searchControl.value]?.suggestions.map((s: any) => s.term) || [];
     });
   }
 }
