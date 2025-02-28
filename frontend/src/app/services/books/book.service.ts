@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenService } from '../token.service';
 import { PageResponseBookResponse } from './model/page-response-book-response';
@@ -20,9 +20,19 @@ export class BookService {
 
 
   searchSolrTitle(query?: string, facet?: string): Observable<any>{
+
     const search = (query) ? ('select?q=title:' + query) : "select?q=title:*";
     const facetSearch = (facet) ? ('&facet=true&facet.field=authorName&facet.field=' + facet) : "";
     return this.http.get<any>(this.solrUrl + search + facetSearch);
+  }
+
+  getSpellSuggestions(query: string): Observable<any> {
+    const params = new HttpParams()
+      .set('q', query)
+      .set('spellcheck', 'true')
+      .set('spellcheck.count', '5');
+
+    return this.http.get(this.solrUrl + "spell/" , { params });
   }
 
   approveReturnBorrowBook( id: number) : Observable<number> {
